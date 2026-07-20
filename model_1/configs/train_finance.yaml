@@ -1,0 +1,41 @@
+project_name: finance-rag-assistant
+seed: 42
+base_model: mistralai/Mistral-7B-Instruct-v0.3
+
+training:
+  output_dir: models/adapters/finance-qlora
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 2
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0002
+  weight_decay: 0.01
+  warmup_ratio: 0.05
+  max_seq_length: 2048
+  logging_steps: 25
+  eval_steps: 200
+  save_steps: 200
+  bf16: true
+  fp16: false
+
+qlora:
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules:
+    - q_proj
+    - v_proj
+
+wandb:
+  enabled: true
+  entity: null
+  project: finance-rag-assistant
+  run_name: finance-qlora-pilot
+
+data:
+  train_path: data/processed/train.jsonl
+  val_path: data/processed/val.jsonl
+  test_path: data/processed/test.jsonl
