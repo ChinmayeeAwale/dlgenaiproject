@@ -1,5 +1,5 @@
 # dlgenaiproject
-# Following is a Dummy Read Me
+# Transformer Encoder 
 Name : Chinmayee Milind Awale
 Roll Number : 
 26DS2000018
